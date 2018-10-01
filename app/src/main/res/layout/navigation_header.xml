@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/login">
+    android:background="#1DA1F9">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="150dp"
@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="13dp"
-        android:src="@drawable/profile"
+        android:src="#999"
         android:id="@+id/nav_profile_image"
         app:civ_border_color="@color/colorPrimaryDark"
         app:civ_border_width="2dp" />

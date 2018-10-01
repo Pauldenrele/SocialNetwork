@@ -21,6 +21,7 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,7 +42,7 @@ public class PersonProfileActivity extends AppCompatActivity {
 
         mAuth=FirebaseAuth.getInstance();
       senderUserId=mAuth.getCurrentUser().getUid();
-        receiverUserId=getIntent().getExtras().get("visit_user_id").toString();
+        receiverUserId= Objects.requireNonNull(getIntent().getExtras().get("visit_user_id")).toString();
          UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
          FriendRequestRef=FirebaseDatabase.getInstance().getReference().child("FriendRequests");
         FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends");
@@ -50,14 +51,14 @@ public class PersonProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    final String myProfileImage =dataSnapshot.child("profileimage").getValue().toString();
-                    String myUserName =dataSnapshot.child("username").getValue().toString();
-                    String myProfileName =dataSnapshot.child("fullname").getValue().toString();
-                    String myProfileStatus =dataSnapshot.child("status").getValue().toString();
-                    String myDOB =dataSnapshot.child("dob").getValue().toString();
-                    String myCountry =dataSnapshot.child("country").getValue().toString();
-                    String myGender =dataSnapshot.child("gender").getValue().toString();
-                    String myRelationStatus =dataSnapshot.child("relationshipstatus").getValue().toString();
+                    final String myProfileImage = Objects.requireNonNull(dataSnapshot.child("profileimage").getValue()).toString();
+                    String myUserName = Objects.requireNonNull(dataSnapshot.child("username").getValue()).toString();
+                    String myProfileName = Objects.requireNonNull(dataSnapshot.child("fullname").getValue()).toString();
+                    String myProfileStatus = Objects.requireNonNull(dataSnapshot.child("status").getValue()).toString();
+                    String myDOB = Objects.requireNonNull(dataSnapshot.child("dob").getValue()).toString();
+                    String myCountry = Objects.requireNonNull(dataSnapshot.child("country").getValue()).toString();
+                    String myGender = Objects.requireNonNull(dataSnapshot.child("gender").getValue()).toString();
+                    String myRelationStatus = Objects.requireNonNull(dataSnapshot.child("relationshipstatus").getValue()).toString();
 
                     Picasso.with(PersonProfileActivity.this).load(myProfileImage).networkPolicy(NetworkPolicy.OFFLINE)
                             .placeholder(R.drawable.profile)
@@ -110,7 +111,7 @@ public class PersonProfileActivity extends AppCompatActivity {
                     if(CURRENT_STATE.equals("request_received")){
                         AcceptFriendRequest();
                     }
-                    if(CURRENT_STATE.equals("friends")){
+                    if(CURRENT_STATE.equals("friens")){
                         UnfriendAnExistingFriend();
                     }
                 }
@@ -181,7 +182,7 @@ public class PersonProfileActivity extends AppCompatActivity {
                                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                                     if(task.isSuccessful()){
                                                                                         SendFriendReqButton.setEnabled(true);
-                                                                                        CURRENT_STATE="friends";
+                                                                                        CURRENT_STATE="friens";
                                                                                         SendFriendReqButton.setText("Defriend");
 
                                                                                         DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
@@ -233,10 +234,10 @@ public class PersonProfileActivity extends AppCompatActivity {
 
     private void MaintainanaceofButtons() {
 
-        FriendRequestRef.child(senderUserId).addValueEventListener(new ValueEventListener() {
+        FriendRequestRef.child(senderUserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if(dataSnapshot.hasChild(receiverUserId )){
                     String request_type =dataSnapshot.child(receiverUserId).child("request_type").getValue().toString();
                     if(request_type.equals("sent")){
                         CURRENT_STATE="request_sent";
@@ -265,7 +266,7 @@ public class PersonProfileActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.hasChild(receiverUserId)){
-                                CURRENT_STATE="friends";
+                                CURRENT_STATE="friens";
 
                                 SendFriendReqButton.setText("Cancel Friend Request");
 
@@ -306,7 +307,7 @@ public class PersonProfileActivity extends AppCompatActivity {
                                    if(task.isSuccessful()){
                                        SendFriendReqButton.setEnabled(true);
                                        CURRENT_STATE="request_sent";
-                                       SendFriendReqButton.setText("Cancel Friend Request");
+                                       SendFriendReqButton.setText("Cancel friend Request");
 
                                        DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
                                        DeclineFriendRequestButton.setEnabled(false);

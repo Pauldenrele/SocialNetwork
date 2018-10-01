@@ -74,7 +74,7 @@ public class FindFriendsActivity extends AppCompatActivity {
                         FindFriends.class,
                         R.layout.all_user_display_layout,
                         FindFriendsViewHolder.class,
-                        allUsersDatabaseRef
+                        searchPeopleandFriendsQuery
 
                 ) {
                     @Override

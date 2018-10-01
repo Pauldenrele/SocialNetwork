@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ECFFEB"
+    android:background="@drawable/friens"
     tools:context=".CommentsActivity">
 
     <TextView
@@ -13,7 +13,9 @@
         android:textStyle="bold"
         android:textSize="24sp"
         android:text="  Comments: "
-        android:textColor="#000"
+        android:fontFamily="cursive"
+        android:textColor="#EDFFFC"
+        android:background="@drawable/friens"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
        android:id="@+id/textView"
@@ -37,11 +39,11 @@
 
         android:layout_marginRight="55dp"
         android:padding="10dp"
-        android:textColor="#000"
+        android:textColor="@drawable/friens"
         android:layout_marginBottom="10dp"
         android:id="@+id/comment_input"
         android:inputType="textMultiLine"
-        android:textColorHint="#000"
+        android:textColorHint="#1DA1F9"
 
         android:background="@drawable/inputs"
         />
@@ -50,9 +52,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/post_comment_btn"
-        android:background="#ffffff"
+        android:background="@drawable/friens"
         android:layout_alignBottom="@+id/comment_input"
         android:layout_alignParentEnd="true"
+
         android:src="@drawable/ic_send__50dp"/>
 
 

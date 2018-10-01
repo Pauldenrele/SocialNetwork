@@ -2,13 +2,15 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item>
-        <shape   android:shape="rectangle" >
+        <shape   android:shape="rectangle"
+            >
 
-            <stroke android:width="3dp" android:color="#8b0000"/>
+
 
             <gradient android:angle="135"
-                android:startColor="#8b0000"
+                android:startColor="#1DA1F9"
                 android:endColor="#000"/>
         </shape>
+
     </item>
 </selector>

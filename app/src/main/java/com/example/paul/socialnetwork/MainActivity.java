@@ -40,11 +40,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.like.LikeButton;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.opencensus.tags.Tag;
@@ -165,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         });
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setTitle("Instafun");
 
         AddNewPostButton = (ImageButton) findViewById(R.id.add_new_post_button);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
@@ -195,6 +201,32 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    public void updateUserStatus(String state){
+
+        String saveCurrentDate , saveCurrentTime;
+
+        Calendar calFordDate =Calendar.getInstance();
+        SimpleDateFormat currentDate =new SimpleDateFormat("dd-MMMM-yyyy");
+        saveCurrentDate = currentDate.format(calFordDate.getTime());
+
+
+        Calendar calFordTime =Calendar.getInstance();
+        SimpleDateFormat currentTime =new SimpleDateFormat("HH:mm a");
+        saveCurrentTime = currentTime.format(calFordTime.getTime());
+
+
+        Map currentStateMap = new HashMap();
+        currentStateMap.put("time" , saveCurrentTime);
+        currentStateMap.put("date" , saveCurrentDate);
+        currentStateMap.put("type" , state);
+
+        UsersRef.child(currentUserID).child("userState")
+                .updateChildren(currentStateMap);
+
+
+    }
+
 
     private void DisplayAllUsersPost() {
 
@@ -269,13 +301,16 @@ public class MainActivity extends AppCompatActivity {
         };
         postList.setAdapter(firebaseRecyclerAdapter);
 
+        updateUserStatus("online");
+
     }
 
 
     public static class PostsViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
-        ImageButton LikePostButton , CommentPostButton;
+        ImageButton LikePostButton ;
+       ImageButton CommentPostButton;
           TextView DisplayNoOfLikes;
           int countLikes;
           String currentUserId;
@@ -284,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
             super(itemView);
             mView = itemView;
 
-            LikePostButton =(ImageButton)mView.findViewById(R.id.like_button);
+            LikePostButton =(ImageButton) mView.findViewById(R.id.like_button);
             CommentPostButton=(ImageButton)mView.findViewById(R.id.comment_button);
             DisplayNoOfLikes =(TextView)mView.findViewById(R.id.display_no_of_likes);
 
@@ -300,11 +335,13 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.child(PostKey).hasChild(currentUserId)){
                         countLikes=(int)dataSnapshot.child(PostKey).getChildrenCount();
-                        LikePostButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+                        LikePostButton.setImageResource(R.drawable.ic_fas_black_24dp);
+                       // LikePostButton.setLiked(true);
                         DisplayNoOfLikes.setText(Integer.toString(countLikes) + (" Likes"));
                     }else {
                         countLikes=(int)dataSnapshot.child(PostKey).getChildrenCount();
-                        LikePostButton.setImageResource(R.drawable.ic_dislike_black_24dp);
+                        LikePostButton.setImageResource(R.drawable.ic_favorite_black_50dp);
+                      // LikePostButton.setLiked(false);
                         DisplayNoOfLikes.setText(Integer.toString(countLikes) + (" Likes"));
                     }
                 }
@@ -465,7 +502,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_setting:
                 SendUserToSettingsActivity();
                 break;
+            case R.id.nav_messages:
+                SendUserToFriendsActivity();
+                break;
             case R.id.nav_Logout:
+                updateUserStatus("offline");
                 mAuth.signOut();
                 SendUserToLoginActivity();
                 break;

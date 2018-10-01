@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:background="@drawable/login"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout android:background="#1DA1F9"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -123,11 +123,27 @@
 
             <ImageButton
                 android:id="@+id/like_button"
-                android:background="#ffffff"
+                android:background="#ECFFEB"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_favorite_black_50dp" />
+
+          <!--  <com.like.LikeButton
+                app:icon_type="heart"
+                app:circle_start_color="@color/colorPrimary"
+                app:like_drawable="@drawable/heart_on"
+                app:unlike_drawable="@drawable/heart_off"
+                app:dots_primary_color="@color/colorAccent"
+                app:dots_secondary_color="@color/colorPrimary"
+                app:circle_end_color="@color/colorAccent"
+                app:icon_size="25dp"
+                app:liked="true"
+                app:anim_scale_factor="2"
+                app:is_enabled="false"
+                android:id="@+id/star_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>-->
 
             <TextView
                 android:id="@+id/display_no_of_likes"
@@ -140,7 +156,7 @@
 
 
                 android:textColor="#000"
-                android:textSize="19sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <ImageButton
@@ -149,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="150dp"
                 android:baselineAlignBottom="true"
-                android:background="#ffffff"
+                android:background="#ECFFEB"
                 android:src="@drawable/ic__24dp" />
 
         </LinearLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:background="#ECFFEB"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -22,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/comment_username"
                 android:text="username "
-                android:textColor="#8b0000"
+                android:textColor="#1DA1F9"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 />
@@ -31,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/simple_text"
                 android:text="commented on "
-                android:textColor="#7a0000"
+                android:textColor="#1DA1F9"
                 android:textSize="13sp"
 
                 />

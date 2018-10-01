@@ -24,7 +24,7 @@
         android:layout_marginLeft="6dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="234dp"
+        android:layout_marginTop="260dp"
         android:background="@drawable/inputs"
         android:drawableLeft="@drawable/ic_mail_black_24dp"
         android:ems="10"
